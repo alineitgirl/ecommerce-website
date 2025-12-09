@@ -6,7 +6,7 @@ const products = [
     id: 1,
     title: "Air Max Pulse",
     price: 149.99,
-    imageSrc: "shoes/shoe-1.png",
+    imageSrc: "/shoes/shoe-1.png",
     badge: {
       label: "New",
       tone: "orange" as const

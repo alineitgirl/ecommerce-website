@@ -7,10 +7,9 @@ import SocialProviders from './SocialProviders';
 
 type Props = {
     mode: 'sign-up' | 'sign-in';
-    onSubmit: (formData: FormData) => Promise<{ok: boolean; userId?: string} | void>;
 }
 
-const AuthForm = ({ mode, onSubmit} : Props) => {
+const AuthForm = ({ mode} : Props) => {
 
     const [ show, setShow ] = useState(false);
     const router = useRouter();
@@ -20,16 +19,6 @@ const AuthForm = ({ mode, onSubmit} : Props) => {
 
          const formData = new FormData(e.currentTarget);
 
-        try {
-
-        const result = await onSubmit(formData);
-
-        if (result?.ok) {
-            router.push("/");
-        }
-    } catch(e) {
-        console.log("error", e);
-    }
 }
 
     
