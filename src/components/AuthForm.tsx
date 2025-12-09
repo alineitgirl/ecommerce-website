@@ -7,9 +7,10 @@ import SocialProviders from './SocialProviders';
 
 type Props = {
     mode: 'sign-up' | 'sign-in';
+    onSubmit: (formData : FormData) => Promise<{ ok: boolean, userId?: string } | void>
 }
 
-const AuthForm = ({ mode} : Props) => {
+const AuthForm = ({ mode, onSubmit} : Props) => {
 
     const [ show, setShow ] = useState(false);
     const router = useRouter();
@@ -17,7 +18,20 @@ const AuthForm = ({ mode} : Props) => {
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-         const formData = new FormData(e.currentTarget);
+        const formData = new FormData(e.currentTarget);
+
+        try {
+            
+            const result = await onSubmit(formData);
+
+            if (result?.ok) {
+                router.push("/");
+            }
+
+        } catch (e) {
+            console.log("error", e);
+        }
+
 
 }
 

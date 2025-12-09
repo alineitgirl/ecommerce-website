@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Jost } from "next/font/google";
 import "./globals.css";
-import { Navbar, Footer, Card } from "@/src/components";
 
 const jost = Jost({
   variable: '--font-jost',

@@ -1,12 +1,13 @@
 import React from 'react'
 import { Card } from '@/src/components';
+import { getCurrentUser } from '@/src/lib/auth/actions';
 
 const products = [
   {
     id: 1,
     title: "Air Max Pulse",
     price: 149.99,
-    imageSrc: "/shoes/shoe-1.png",
+    imageSrc: "/shoes/shoe-1.jpg",
     badge: {
       label: "New",
       tone: "orange" as const
@@ -31,10 +32,25 @@ const products = [
       label: "New",
       tone: "orange" as const
     },
+  }, 
+  {
+    id: 4,
+    title: "Air Zoom Pegasus",
+    price: 129.99,
+    imageSrc: "/shoes/shoe-4.webp",
+    badge: {
+      label: "Hot",
+      tone: "red" as const
+    },
   }
 ]
 
-const Home = () => {
+const Home = async () => {
+
+  const user = await getCurrentUser();
+
+  console.log("USER" + user);
+
   return (
     <main className='space-y-8'>
       <section>
