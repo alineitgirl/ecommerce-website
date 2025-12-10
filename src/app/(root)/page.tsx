@@ -1,71 +1,60 @@
 import React from 'react'
 import { Card } from '@/src/components';
 import { getCurrentUser } from '@/src/lib/auth/actions';
+import { parseFilterParams } from '@/src/lib/utils/query';
+import { getAllProducts } from '@/src/lib/actions/product';
 
-const products = [
-  {
-    id: 1,
-    title: "Air Max Pulse",
-    price: 149.99,
-    imageSrc: "/shoes/shoe-1.jpg",
-    badge: {
-      label: "New",
-      tone: "orange" as const
-    },
-  },
-  {
-     id: 2,
-    title: "Air Zoom Pegasus",
-    price: 129.99,
-    imageSrc: "/shoes/shoe-2.webp",
-    badge: {
-      label: "Hot",
-      tone: "red" as const
-    },
-  },
-  {
-     id: 3,
-    title: "Air Max Pulse",
-    price: 149.99,
-    imageSrc: "/shoes/shoe-3.webp",
-    badge: {
-      label: "New",
-      tone: "orange" as const
-    },
-  }, 
-  {
-    id: 4,
-    title: "Air Zoom Pegasus",
-    price: 129.99,
-    imageSrc: "/shoes/shoe-4.webp",
-    badge: {
-      label: "Hot",
-      tone: "red" as const
-    },
-  }
-]
+type SearchParams = Record<string, string | string[] | undefined>;
 
-const Home = async () => {
-
+const Home = async ({
+  searchParams
+}: {
+  searchParams: Promise<SearchParams>;
+}) => {
   const user = await getCurrentUser();
-
   console.log("USER" + user);
 
+  const sp = await searchParams;
+  const parsed = parseFilterParams(sp);
+  const { products, totalCount } = await getAllProducts(parsed);
+
   return (
-    <main className='space-y-8'>
+    <main className='mx-auto max-w-7xl px-4 sm:px-6 lg:px-8'>
+      <header className="py-6">
+        <h1 className="text-heading-3 text-dark-900">
+          Latest shoes ({totalCount})
+        </h1>
+      </header>
+
       <section>
-        <h2 className='text-heading-2 font-jost'>Latest shoes</h2>
-        <div className='grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4'>
-          {products.map((product) => (
-            <Card key={product.id}
-            title={product.title}
-            imageSrc={product.imageSrc}
-            imageAlt={product.title}
-            price={product.price}
-            badge={product.badge}/>
-          ))}
-        </div>
-     </section>
+        {products.length === 0 ? (
+          <div className="rounded-lg border border-light-300 p-8 text-center">
+            <p className="text-body text-dark-700">No products available.</p>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4 pb-6">
+            {products.map((product) => {
+              const price = 
+                product.minPrice !== null && product.maxPrice !== null && product.minPrice !== product.maxPrice
+                  ? `$${product.minPrice.toFixed(2)} - $${product.maxPrice.toFixed(2)}`
+                  : product.minPrice !== null
+                  ? `$${product.minPrice.toFixed(2)}`
+                  : undefined;
+
+              return (
+                <Card
+                  key={product.id}
+                  title={product.name}
+                  subtitle={product.subtitle ?? undefined}
+                  imageSrc={product.imageUrl ?? "/shoes/shoe-1.jpg"}
+                  price={price}
+                  href={`/products/${product.id}`}
+                />
+              )
+            })}
+          </div>
+        )}
+      </section>
     </main>
   )
 }

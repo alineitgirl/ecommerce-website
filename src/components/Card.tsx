@@ -9,7 +9,7 @@ export interface CardProps {
   subtitle?: string;
   meta?: string | string[];
   imageSrc: string;
-  imageAlt: string;
+  imageAlt?: string;
   price?: string | number;
   href?: string;
   badge?: { label: string; tone?: BadgeTone };

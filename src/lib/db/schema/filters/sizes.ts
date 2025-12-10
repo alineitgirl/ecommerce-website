@@ -17,7 +17,7 @@ export const sizeRelations = relations(sizes, ({ many }) => ({
 export const insertSizeSchema = z.object({
     name: z.string().min(1),
     slug: z.string().min(1),
-    sortOrder: z.number().min(1),
+    sortOrder: z.number().min(0),
 });
 
 export const selectSizeSchema = insertSizeSchema.extend({

@@ -27,8 +27,9 @@ const Navbar = () => {
         <ul className="hidden items-center gap-8 md:flex">
             {NAV_LINKS.map((l) => (
                 <li key={l.href}>
-                    <Link href={l.href} className="text-body text-dark-900 transition-colors hover:text-dark-700"/>
-                    {l.label}
+                    <Link href={l.href} className="text-body text-dark-900 transition-colors hover:text-dark-700">
+                        {l.label}
+                    </Link>
                 </li>
             ))}
         </ul>
@@ -64,8 +65,8 @@ const Navbar = () => {
                         <Link href={l.href}
                         className="block py-2 text-body text-dark-900 hover:text-dark-700"
                         onClick={() => setOpen(false)}>
+                            {l.label}
                         </Link>
-                        {l.label}
                     </li>
                 ))}
                 <li className="flex items-center justify-between pt-2">

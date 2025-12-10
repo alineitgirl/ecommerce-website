@@ -32,17 +32,17 @@ export const productColllectionRelations = relations(productCollections, ({ one 
     })
 }));
 
-export const insertSelectonSchema = z.object({
+export const insertCollectionSchema = z.object({
     name: z.string().min(1),
     slug: z.string().min(1),
     createdAt: z.date().optional()
 });
 
-export const selectCollectionSchema = insertSelectonSchema.extend({
+export const selectCollectionSchema = insertCollectionSchema.extend({
     id: z.string().uuid(),
 });
 
-export type InsertCollection = z.infer<typeof insertSelectonSchema>;
+export type InsertCollection = z.infer<typeof insertCollectionSchema>;
 export type SelectCollection = z.infer<typeof selectCollectionSchema>;
 
 export const insertProductCollectionSchema = z.object({

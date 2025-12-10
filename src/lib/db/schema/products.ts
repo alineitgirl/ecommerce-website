@@ -49,5 +49,5 @@ export const selectProductSchema = insertProductSchema.extend({
     id: z.string().uuid(),
 });
 
-export type InsertProduct = z.infer<typeof selectProductSchema>;
-export type SelectProduct = z.infer<typeof insertProductSchema>;
+export type InsertProduct = z.infer<typeof insertProductSchema>;
+export type SelectProduct = z.infer<typeof selectProductSchema>;

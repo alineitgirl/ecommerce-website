@@ -1,6 +1,6 @@
-import { pgTable, text, timestamp, uuid, integer, numeric, jsonb, boolean, real } from "drizzle-orm/pg-core";
+import { pgTable, text, timestamp, uuid, integer, numeric, jsonb,  real} from "drizzle-orm/pg-core";
 import { relations } from "drizzle-orm";
-import { number, z } from 'zod';
+import { z } from 'zod';
 import { products } from "./products";
 import { colors } from './filters/colors';
 import { sizes } from './filters/sizes';
@@ -50,9 +50,9 @@ export const insertVariantSchema = z.object({
     inStock: z.number().int().nonnegative().optional(),
     weight: z.number().optional().nullable(),
     dimensions: z.object({
-        length: number,
-        width: number,
-        height: number
+        length: z.number(),
+        width: z.number(),
+        height: z.number(),
     })
     .partial()
     .optional()

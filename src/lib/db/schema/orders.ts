@@ -1,7 +1,7 @@
 import { pgTable, uuid, pgEnum, timestamp, integer, numeric } from "drizzle-orm/pg-core";
 import { relations } from "drizzle-orm";
 import { z } from 'zod';
-import { users } from "./user";
+import { users } from "./users";
 import { addresses } from "./addresses";
 import { productVariants } from "./variants";
 import { createAdapterFactory } from "better-auth/adapters";

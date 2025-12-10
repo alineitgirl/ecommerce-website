@@ -1,7 +1,7 @@
 import { pgEnum, pgTable, text, uuid, boolean } from "drizzle-orm/pg-core";
 import { z } from "zod";
 import { relations } from "drizzle-orm";
-import { users } from "./user";
+import { users } from "./users";
 
 export const addressTypeEnum = pgEnum('address_type', ['billing', 'shipping']);
 

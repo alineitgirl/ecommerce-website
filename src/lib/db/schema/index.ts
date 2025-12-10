@@ -1,7 +1,7 @@
-export * from './guest';
-export * from './user';
-export * from './session';
-export * from './account';
+export * from './guests';
+export * from './users';
+export * from './sessions';
+export * from './accounts';
 export * from './verification';
 
 export * from './variants';
@@ -15,6 +15,8 @@ export * from './categories';
 export * from './coupons';
 export * from './images';
 export * from './products';
+export * from './reviews';
+export * from './wishlists';
 
 export * from './filters/genders';
 export * from './filters/sizes';
