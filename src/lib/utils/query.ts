@@ -104,8 +104,8 @@ export type NormalizedProductFilters = {
     categorySlugs: string[],
     sizeSlugs: string[],
     colorSlugs: string[],
-    priceMin?: number,
-    priceMax?: number,
+    priceMin: number,
+    priceMax: number,
     priceRanges: Array<[number | undefined, number | undefined]>,
     sort: "featured" | "newest" | "price-desc" | "price-asc",
     page: number,
@@ -145,7 +145,7 @@ export function parseFilterParams(sp : Record<string, string | string[] | undefi
         const min = minStr ? Number(minStr) : undefined;
         const max = maxStr ? Number(maxStr) : undefined;
         
-        return [Number.isNaN(min as number) ? undefined : min, Number.isNaN(max as Number) ? undefined : max] as [
+        return [Number.isNaN(min as number) ? undefined : min, Number.isNaN(max as number) ? undefined : max] as [
             number | undefined,
             number | undefined
         ];

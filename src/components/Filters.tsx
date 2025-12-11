@@ -1,7 +1,7 @@
 'use client'
 
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { useEffect, useMemo, useState} from 'react';
+import { useMemo, useState} from 'react';
 import { getArrayParam, toggleArrayParam, removeParams} from "@/src/lib/utils/query";
 import Group from './Group';
 
@@ -38,9 +38,11 @@ export default function Filters() {
     price: getArrayParam(search, "price").length,
   };
 
-  useEffect(() => {
+  const [prevSearch, setPrevSearch] = useState(search);
+  if (prevSearch !== search) {
+    setPrevSearch(search);
     setOpen(false);
-  }, [search]);
+  }
 
   const onToggle = (key: GroupKey, value: string) => {
     const url = toggleArrayParam(pathname, search, key, value);
@@ -79,6 +81,7 @@ return (
     <ul className='space-y-2'>
       {GENDERS.map((g) => {
         const checked = getArrayParam(search, "gender").includes(g);
+        const genderLabel = g === 'men' ? 'Men' : g === 'women' ? 'Women' : 'Unisex';
         return (
           <li key={g} className='flex items-center gap-2'>
             <input  id={`gender-${g}`}
@@ -87,7 +90,7 @@ return (
             checked={checked}
             onChange={() => onToggle("gender" as GroupKey, g)}/>
             <label htmlFor={`gender-${g}`} className='text-body text-dark-900'>
-              {g[0].toUpperCase() + g.slice(1)}
+              {genderLabel}
             </label>
           </li>
         )
@@ -121,6 +124,7 @@ return (
     <ul className='grid grid-cols-2 gap-2'>
       {COLORS.map((c) => {
         const checked = getArrayParam(search, "color").includes(c);
+        const colorLabel = c === 'black' ? 'Black' : c === 'white' ? 'White' : c === 'red' ? 'Red' : c === 'green' ? 'Green' : c === 'blue' ? 'Blue' : 'Grey';
         return (
           <li key={c} className='flex items-center gap-2'>
               <input  id={`color-${c}`}
@@ -129,7 +133,7 @@ return (
             checked={checked}
             onChange={() => onToggle("color" as GroupKey, c)}/>
              <label htmlFor={`color-${c}`} className="text-body capitalize">
-                    {c}
+                    {colorLabel}
               </label>
           </li>
         );
@@ -181,6 +185,7 @@ return (
                 <ul className="space-y-2">
                   {GENDERS.map((g) => {
                     const checked = getArrayParam(search, "gender").includes(g);
+                    const genderLabel = g === 'men' ? 'Men' : g === 'women' ? 'Women' : 'Unisex';
                     return (
                       <li key={g} className="flex items-center gap-2">
                         <input
@@ -191,7 +196,7 @@ return (
                           onChange={() => onToggle("gender", g)}
                         />
                         <label htmlFor={`m-gender-${g}`} className="text-body">
-                          {g[0].toUpperCase() + g.slice(1)}
+                          {genderLabel}
                         </label>
                       </li>
                     );
@@ -224,6 +229,7 @@ return (
                 <ul className="grid grid-cols-2 gap-2">
                   {COLORS.map((c) => {
                     const checked = getArrayParam(search, "color").includes(c);
+                    const colorLabel = c === 'black' ? 'Black' : c === 'white' ? 'White' : c === 'red' ? 'Red' : c === 'green' ? 'Green' : c === 'blue' ? 'Blue' : 'Grey';
                     return (
                       <li key={c} className="flex items-center gap-2">
                         <input
@@ -234,7 +240,7 @@ return (
                           onChange={() => onToggle("color", c)}
                         />
                         <label htmlFor={`m-color-${c}`} className="text-body capitalize">
-                          {c}
+                          {colorLabel}
                         </label>
                       </li>
                     );

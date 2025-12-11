@@ -20,7 +20,7 @@ const Navbar = () => {
         <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8"
         aria-label="Primary">
             <Link href="/" aria-label="Nike-home" className="flex items-center">
-                <Image src="logo.svg" alt="Nike" width={28} height={28} priority className="invert"/>
+                <Image src="/logo.svg" alt="Nike" width={28} height={28} priority className="invert"/>
             </Link>
 
 
